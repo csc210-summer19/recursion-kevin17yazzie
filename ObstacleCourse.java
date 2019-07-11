@@ -76,7 +76,35 @@ public class ObstacleCourse {
     // Do not forget to set the instance variable foundRow and 
     // foundCol in this method when the exit is found.
     //
-    return !false;
+    boolean escaped = false;
+    if (course[row][col] != '.') {
+    	course[row][col] = '.';
+    	
+    	if (row == 0 || row == course.length - 1 || col == 0 || col == course[row].length - 1) {
+    		escaped = true;
+    		foundRow = row;
+    		foundCol = col;
+    	}
+    	
+    	else {
+    		escaped = findExit(row + 1, col);
+    		
+    		if (!escaped)
+    			escaped = findExit(row, col + 1);
+    		
+    		if (!escaped)
+    			escaped = findExit(row - 1, col);
+    		
+    		if (!escaped)
+    			escaped = findExit(row, col - 1);
+    	}
+    	if (escaped) 
+    		course[row][col] = '0';
+    	
+    }
+    return escaped;
+    
+    
   }
 
 }
